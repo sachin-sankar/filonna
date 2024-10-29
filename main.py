@@ -20,3 +20,17 @@ def check_subs_folder(base_path):
         if "subs" not in listdir(movie_dir):
             no_subs.append(movie_dir)
     return no_subs
+
+
+def check_subs(movie_dir):
+    """
+    Check if subtitles exits in the given movie folder
+
+    Returns:
+        sub_paths(list): List of path to each subtitle file
+    """
+    subs_paths = []
+    for i in listdir(movie_dir):
+        if i.lower().endswith(".srt"):
+            subs_paths.append(i)
+    return subs_paths
