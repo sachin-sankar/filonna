@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "filonna"
+version = "0.1.0"
+description = "A CLI based movie metadata and folder manager"
+authors = ["sachin-sankar <mail.sachinsankar@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+platformdirs = "^4.3.6"
+rich = "^13.9.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
