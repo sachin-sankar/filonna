@@ -1,12 +1,12 @@
 from os import listdir, getenv, rename
-from time import sleep
+from typing import List
 from pathlib import Path
 from os.path import isdir
 from dotenv import load_dotenv
 import tmdbsimple as tmdb
 from json import dump
 
-from helpers import sanitise_folder_title
+from helpers import is_video_file, sanitise_folder_title
 
 
 load_dotenv()
@@ -77,3 +77,24 @@ def identify_movie_dir(movie_dir: str, retries: int = 7) -> dict | None:
     parent = Path(movie_dir).parent.absolute()
     rename(movie_dir, f"{parent}/{result["title"]}")
     return result
+
+
+def handle_strays(movie_dir: str):
+    """
+    Make folders for movie files with folders
+    """
+
+    # Identify Strays
+    strays: List[Path] = []
+    for i in listdir(movie_dir):
+        i = Path(f"{movie_dir}/{i}")
+        if i.is_file() and is_video_file(i):
+            strays.append(i)
+
+    # Create Folders
+    base_path = Path(movie_dir)
+    for stray in strays:
+        folder_title = sanitise_folder_title(stray.name)
+        folder_path = base_path.joinpath(folder_title)
+        folder_path.mkdir()
+        stray.rename(base_path.joinpath(folder_path).joinpath(stray.name))

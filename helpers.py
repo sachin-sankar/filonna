@@ -1,4 +1,5 @@
 import re
+from mimetypes import guess_type
 
 
 def sanitise_folder_title(folder_title: str) -> str:
@@ -15,3 +16,13 @@ def sanitise_folder_title(folder_title: str) -> str:
 
     folder_title = folder_title.split("-")[0].strip()
     return folder_title
+
+
+def is_video_file(path):
+    mime = guess_type(path)
+    if mime[0] == None:
+        return False
+    if mime[0].startswith("video"):
+        return True
+    else:
+        return False
