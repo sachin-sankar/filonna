@@ -1,5 +1,6 @@
 import re
 from mimetypes import guess_type
+from os import listdir
 
 
 def sanitise_folder_title(folder_title: str) -> str:
@@ -23,6 +24,16 @@ def is_video_file(path):
     if mime[0] == None:
         return False
     if mime[0].startswith("video"):
+        return True
+    else:
+        return False
+
+
+def check_metadata_file(dir):
+    """
+    Check if filonna-meta.json file exists in the given dir
+    """
+    if "filonna-meta.json" in listdir(dir):
         return True
     else:
         return False
