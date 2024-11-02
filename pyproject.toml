@@ -9,6 +9,9 @@ readme = "README.md"
 python = "^3.12"
 platformdirs = "^4.3.6"
 rich = "^13.9.3"
+tmdbsimple = "^2.9.1"
+requests = "^2.32.3"
+python-dotenv = "^1.0.1"
 
 
 [build-system]
