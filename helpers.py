@@ -1,6 +1,8 @@
 import re
 from mimetypes import guess_type
 from os import listdir
+from platformdirs import user_config_path
+from configparser import ConfigParser, NoSectionError
 
 
 def sanitise_folder_title(folder_title: str) -> str:
@@ -37,3 +39,31 @@ def check_metadata_file(dir):
         return True
     else:
         return False
+
+
+def get_config_value(section: str, key: str):
+    config_file_path = user_config_path(appname="Filonna", ensure_exists=True).joinpath(
+        "filonna.ini"
+    )
+    config = ConfigParser()
+    try:
+        config.read(config_file_path)
+        return config.get(section, key)
+    except NoSectionError:
+        with open(config_file_path, "w") as file:
+            print(f"Created config file at {config_file_path}")
+            config.add_section(section)
+            config.set(section, key, "none")
+            config.write(file)
+        return "none"
+
+
+def set_config_value(section: str, key: str, value):
+    config_file_path = user_config_path(appname="Filonna", ensure_exists=True).joinpath(
+        "filonna.ini"
+    )
+    config = ConfigParser()
+    config.read(config_file_path)
+    config.set(section, key, value)
+    with open(config_file_path, "w") as file:
+        config.write(file)
