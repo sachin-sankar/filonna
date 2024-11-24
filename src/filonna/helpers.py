@@ -1,8 +1,9 @@
 import re
+from configparser import ConfigParser, NoSectionError
 from mimetypes import guess_type
 from os import listdir
+
 from platformdirs import user_config_path
-from configparser import ConfigParser, NoSectionError
 from rich import print
 
 
@@ -24,7 +25,7 @@ def sanitise_folder_title(folder_title: str) -> str:
 
 def is_video_file(path):
     mime = guess_type(path)
-    if mime[0] == None:
+    if mime[0] is None:
         return False
     if mime[0].startswith("video"):
         return True

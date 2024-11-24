@@ -1,7 +1,8 @@
 import click
-from filonna.helpers import get_config_value
 from rich import print
 from rich.panel import Panel
+
+from filonna.helpers import get_config_value
 
 
 @click.group()

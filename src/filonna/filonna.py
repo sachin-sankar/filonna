@@ -1,13 +1,12 @@
-from os import listdir, getenv, rename
-from typing import List
-from pathlib import Path
-from os.path import isdir
-from dotenv import load_dotenv
-import tmdbsimple as tmdb
 from json import dump
+from os import getenv, listdir, rename
+from os.path import isdir
+from pathlib import Path
+from typing import List
 
+import tmdbsimple as tmdb
+from dotenv import load_dotenv
 from helpers import is_video_file, sanitise_folder_title
-
 
 load_dotenv()
 tmdb.API_KEY = getenv("TMDB_API_KEY")
