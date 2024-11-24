@@ -41,10 +41,14 @@ def check_metadata_file(dir):
         return False
 
 
-def get_config_value(section: str, key: str):
-    config_file_path = user_config_path(appname="Filonna", ensure_exists=True).joinpath(
+def get_config_file_path():
+    return user_config_path(appname="Filonna", ensure_exists=True).joinpath(
         "filonna.ini"
     )
+
+
+def get_config_value(section: str, key: str):
+    config_file_path = get_config_file_path()
     config = ConfigParser()
     try:
         config.read(config_file_path)
@@ -59,9 +63,7 @@ def get_config_value(section: str, key: str):
 
 
 def set_config_value(section: str, key: str, value):
-    config_file_path = user_config_path(appname="Filonna", ensure_exists=True).joinpath(
-        "filonna.ini"
-    )
+    config_file_path = get_config_file_path()
     config = ConfigParser()
     config.read(config_file_path)
     config.set(section, key, value)
