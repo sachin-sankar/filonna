@@ -3,6 +3,7 @@ from mimetypes import guess_type
 from os import listdir
 from platformdirs import user_config_path
 from configparser import ConfigParser, NoSectionError
+from rich import print
 
 
 def sanitise_folder_title(folder_title: str) -> str:
@@ -55,7 +56,7 @@ def get_config_value(section: str, key: str):
         return config.get(section, key)
     except NoSectionError:
         with open(config_file_path, "w") as file:
-            print(f"Created config file at {config_file_path}")
+            print(f"[green]Created config file at [blue bold]{config_file_path}[/]")
             config.add_section(section)
             config.set(section, key, "none")
             config.write(file)
